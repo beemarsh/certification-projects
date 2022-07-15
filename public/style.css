@@ -43,11 +43,14 @@ h3 {
   /* margin: 15px auto; */
 }
 code {
-	font-family: 'Poppins', sans-serif;
+  font-family: 'Poppins', sans-serif;
   padding: 2px;
   color: white;
   background-color: #172f52ed;
-  font-size: 14px;
+  font-size: 13px;
+  max-width: 350px;
+  display: block;
+  border-radius: 5px;
 }
 ol {
 	list-style-position: outside;

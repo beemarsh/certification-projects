@@ -11,6 +11,9 @@ app.get("/timestamp", function (req, res) {
   res.sendFile(__dirname + "/views/timestamp.html");
 });
 
+app.get("/headerparser", function (req, res) {
+  res.sendFile(__dirname + "/views/headerParser.html");
+});
 // your first API endpoint...
 app.get("/timestamp/api", function (req, res) {
   res.json({ unix: Date.now(), utc: Date() });
@@ -30,8 +33,16 @@ app.get("/timestamp/api/:date", function (req, res) {
   if (dateObj.toString() === "Invalid Date") {
     res.json({ error: "Invalid Date" });
   } else {
-    res.json({ unix: dateObj.valueOf(), utc: dateObj.toUTCString() });
+    res.json({ unix: dateObj.valueOf(), utc: dateObj.toUTCString() });  
   }
+});
+
+app.get("/headerparser/api/whoami", function (req, res) {
+  res.json({
+    "ipaddress": req.headers['x-forwarded-for'],
+    "language": req.headers['accept-language'],
+    "software": req.headers['user-agent']
+  })
 });
 
 var listener = app.listen(process.env.PORT, function () {
