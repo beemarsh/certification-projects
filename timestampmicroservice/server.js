@@ -12,11 +12,11 @@ app.get("/", function (req, res) {
 });
 
 // your first API endpoint...
-app.get("/api/timestamp", function (req, res) {
+app.get("/api", function (req, res) {
   res.json({ unix: Date.now(), utc: Date() });
 });
 
-app.get("/api/timestamp/:date", function (req, res) {
+app.get("/api/:date", function (req, res) {
   let dateString = req.params.date;
   if (/\d{5,}/.test(dateString)) {
     let dateInteger = parseInt(dateString);
