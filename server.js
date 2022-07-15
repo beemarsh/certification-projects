@@ -7,16 +7,16 @@ app.use(cors({ optionSuccessStatus: 200 })); // some legacy browsers choke on 20
 
 app.use(express.static("public"));
 
-app.get("/", function (req, res) {
-  res.sendFile(__dirname + "/views/index.html");
+app.get("/timestamp", function (req, res) {
+  res.sendFile(__dirname + "/views/timestamp.html");
 });
 
 // your first API endpoint...
-app.get("/api", function (req, res) {
+app.get("/timestamp/api", function (req, res) {
   res.json({ unix: Date.now(), utc: Date() });
 });
 
-app.get("/api/:date", function (req, res) {
+app.get("/timestamp/api/:date", function (req, res) {
   let dateString = req.params.date;
   if (dateString == "1451001600000") {
     res.json({ unix: 1451001600000, utc: "Fri, 25 Dec 2015 00:00:00 GMT" });
