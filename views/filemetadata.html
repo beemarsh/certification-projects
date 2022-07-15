@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>API: File Metadata Microservice</title>
+    <link
+      rel="shortcut icon"
+      href="https://bimarshbhusal.com.np/icons/icon-48x48.png?v=646f8c0b51bf5a308a3f13e771d8acf7"
+      type="image/x-icon"
+    />
+    <link href="style.css" rel="stylesheet" type="text/css" />
+  </head>
+
+  <body>
+    <div class="container">
+      <h2>File Metadata Microservice</h2>
+      <ul class="user-stories">
+        <li>
+          <form
+            enctype="multipart/form-data"
+            method="POST"
+            action="/filemetadata/api/fileanalyse"
+          >
+            <input
+              id="inputfield"
+              type="file"
+              name="upfile"
+              class="custom-file-input"
+            />
+            <input id="button" type="submit" value="Upload" class="input-button" />
+          </form>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>
