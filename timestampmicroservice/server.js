@@ -23,6 +23,7 @@ app.get("/api/:date", function (req, res) {
     res.json({ unix: dateString, utc: new Date(dateInteger).toUTCString() });
   }
   let dateObj = new Date(dateString);
+  dateObj.setMinutes(date.getMinutes()-3);
   if (dateObj.toString() === "Invalid Date") {
     res.json({ error: "Invalid Date" });
   } else {
