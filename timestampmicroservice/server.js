@@ -36,7 +36,7 @@ router.get("/api/:date", function (req, res) {
     res.send(
       JSON.stringify({
         unix: date.getTime(),
-        natural: strftime("%B %d, %Y", date),
+        utc: strftime("%B %d, %Y", date),
       })
     );
 });
