@@ -286,8 +286,8 @@ app.post('/exercisetracker/api/users/:_id/exercises', (req, res, next) => {
 
 });
 
-app.get('/exercisetracker/api/log', (req, res) => {
-  User.findOne({ _id: req.query.userId }, (err, data) => {
+app.get('/exercisetracker/api/users/:id/logs', (req, res) => {
+  User.findOne({ _id: req.params.id }, (err, data) => {
     if (data === null) {
       res.send({ error: "User not found" });
     } else {
