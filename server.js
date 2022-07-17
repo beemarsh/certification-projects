@@ -27,10 +27,6 @@ app.get("/headerparser", function (req, res) {
   res.sendFile(__dirname + "/views/headerParser.html");
 });
 
-
-
-
-
 //
 app.get("/timestamp/api", function (req, res) {
   res.json({ unix: Date.now(), utc: Date() });
@@ -61,7 +57,6 @@ app.get("/headerparser/api/whoami", function (req, res) {
     software: req.headers["user-agent"],
   });
 });
-
 
 // URL SHORTENER MICRO SERVICE
 
@@ -104,7 +99,7 @@ let urlExtractor = function (url) {
   }
 };
 
-app.post("/urlshortener/api/shorturl/new", async function (req, res) {
+app.post("/urlshortener/api/shorturl", async function (req, res) {
   const url = req.body.url;
   const urlCode = shortId.generate();
 
@@ -114,7 +109,7 @@ app.post("/urlshortener/api/shorturl/new", async function (req, res) {
   if (testURL) {
     dns.resolve(testURL, async (err, address, family) => {
       if (err) {
-        res.json({ error: "invalid URL" });
+        res.json({ error: "invalid url" });
       } else {
         try {
           // check if its already in the database
@@ -170,7 +165,6 @@ app.get("/urlshortener/api/shorturl/:short_url?", async function (req, res) {
 app.get("/filemetadata", function (req, res) {
   res.sendFile(__dirname + "/views/filemetadata.html");
 });
-
 
 var multer = require("multer");
 var upload = multer({ dest: "uploads/" });
