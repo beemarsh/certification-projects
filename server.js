@@ -23,7 +23,6 @@ app.get("/", function (req, res) {
   res.sendFile(__dirname + "/views/index.html");
 });
 
-
 app.get("/timestamp", function (req, res) {
   res.sendFile(__dirname + "/views/timestamp.html");
 });
@@ -185,46 +184,43 @@ app.post(
   }
 );
 
-
 // Exercise Tracker Microservice
 
 app.get("/exercisetracker", function (req, res) {
   res.sendFile(__dirname + "/views/exercise.html");
 });
 
-
 const exerciseSchema = new Schema({
   description: String,
   duration: Number,
-  date: { type: Date, default: Date.now }
+  date: { type: Date, default: Date.now },
 });
 const schema = new Schema({
   username: {
     type: String,
     required: true,
-    index: { unique: true }
+    index: { unique: true },
   },
   _id: { type: String, required: true },
-  exercise: [exerciseSchema]
+  exercise: [exerciseSchema],
 });
 
-const User = mongoose.model('User', schema);
-
+const User = mongoose.model("User", schema);
 
 function isValidDate(date) {
   return date instanceof Date && !isNaN(date);
 }
 
-app.post('/exercisetracker/api/users', (req, res, next) => {
+app.post("/exercisetracker/api/users", (req, res, next) => {
   const new_user = req.body.username;
   if (new_user) {
-    User.findOne({ username: new_user }, function(err, data) {
+    User.findOne({ username: new_user }, function (err, data) {
       if (err) next(err);
       if (data !== null) {
-        next({ status: 400, message: 'username already exists' });
+        next({ status: 400, message: "username already exists" });
       } else {
         let user = new User({ username: new_user, _id: shortId.generate() });
-        user.save(function(err, data) {
+        user.save(function (err, data) {
           if (err) {
             next(err);
           }
@@ -233,60 +229,60 @@ app.post('/exercisetracker/api/users', (req, res, next) => {
       }
     });
   } else {
-    next({ status: 400, message: 'no username given' });
+    next({ status: 400, message: "no username given" });
   }
 });
 
-app.post('/exercisetracker/api/users/:_id/exercises', (req, res, next) => {
+app.post("/exercisetracker/api/users/:_id/exercises", (req, res, next) => {
   let user_id = req.params._id,
     description = req.body.description,
     duration = req.body.duration,
     date = req.body.date ? new Date(req.body.date) : new Date();
 
   if (req.params._id) {
-    User.findOne({ _id: user_id }, function(err, data) {
+    User.findOne({ _id: user_id }, function (err, data) {
       if (err) {
         next(err);
       }
       if (data === null || data._id !== user_id) {
-        next({ status: 400, message: 'no id' });
+        next({ status: 400, message: "no id" });
       } else {
-        User.findByIdAndUpdate({ _id: data._id },
+        User.findByIdAndUpdate(
+          { _id: data._id },
           { $push: { exercise: { description, duration, date } } },
           { upsert: true, new: true },
-          function(err, data) {
+          function (err, data) {
             if (err) {
               next(err);
             }
             if (!data) {
-              next({ status: 400, message: 'no valid id' });
-            }
-            else {
+              next({ status: 400, message: "no valid id" });
+            } else {
               res.json({
                 username: data.username,
                 description,
                 duration: +duration,
                 _id: data._id,
-                date: date.toDateString()
-              })
+                date: date.toDateString(),
+              });
             }
-          });
+          }
+        );
       }
     });
-  } else { 
-    next({ status: 400, message: 'no ID given' }); 
+  } else {
+    next({ status: 400, message: "no ID given" });
   }
 
-  if (!description) { 
-    next({ status: 400, message: 'missing description' }) 
+  if (!description) {
+    next({ status: 400, message: "missing description" });
   }
-  if (!duration) { 
-    next({ status: 400, message: 'missing duration' }) 
+  if (!duration) {
+    next({ status: 400, message: "missing duration" });
   }
-
 });
 
-app.get('/exercisetracker/api/users/:id/logs', (req, res) => {
+app.get("/exercisetracker/api/users/:id/logs", (req, res) => {
   User.findOne({ _id: req.params.id }, (err, data) => {
     if (data === null) {
       res.send({ error: "User not found" });
@@ -297,9 +293,11 @@ app.get('/exercisetracker/api/users/:id/logs', (req, res) => {
       const limit = Number(req.query.limit);
 
       if (isValidDate(toDate)) {
-        exercises = exercises.filter(item => item.date >= fromDate && item.date <= toDate);
+        exercises = exercises.filter(
+          (item) => item.date >= fromDate && item.date <= toDate
+        );
       } else if (isValidDate(fromDate)) {
-        exercises = exercises.filter(item => item.date >= fromDate);
+        exercises = exercises.filter((item) => item.date >= fromDate);
       }
 
       let logs = [];
@@ -319,57 +317,54 @@ app.get('/exercisetracker/api/users/:id/logs', (req, res) => {
         _id: data._id,
         username: data.username,
         count: logs.length,
-        log: logs
+        log: logs,
       });
     }
   });
 });
 
-app.get('/exercisetracker/api/users', (req, res) => {
+app.get("/exercisetracker/api/users", (req, res) => {
   const logs = { exercise: false };
   User.find({}, logs, (err, data) => {
     if (err) {
-      res.send({ error: 'Error users' });
+      res.send({ error: "Error users" });
     }
     res.json(data);
-  })
+  });
 });
-
-
 
 // Random Quote
 app.get("/randomquote", function (req, res) {
   res.sendFile(__dirname + "/views/randomquote.html");
 });
 
+// MD Preview
 
+app.get("/mdpreview", function (req, res) {
+  res.sendFile(__dirname + "/views/mdpreview.html");
+});
 
 app.use((req, res, next) => {
-  return next({ status: 404, message: 'not found' })
-})
-
+  return next({ status: 404, message: "not found" });
+});
 
 // Error Handling middleware
 app.use((err, req, res, next) => {
-  let errCode, errMessage
+  let errCode, errMessage;
 
   if (err.errors) {
     // mongoose validation error
-    errCode = 400 // bad request
-    const keys = Object.keys(err.errors)
+    errCode = 400; // bad request
+    const keys = Object.keys(err.errors);
     // report the first validation error
-    errMessage = err.errors[keys[0]].message
+    errMessage = err.errors[keys[0]].message;
   } else {
     // generic or custom error
-    errCode = err.status || 500
-    errMessage = err.message || 'Internal Server Error'
+    errCode = err.status || 500;
+    errMessage = err.message || "Internal Server Error";
   }
-  res.status(errCode).type('txt')
-    .send(errMessage)
-})
-
-
-
+  res.status(errCode).type("txt").send(errMessage);
+});
 
 var listener = app.listen(process.env.PORT, function () {
   console.log("Your app is listening on port " + process.env.PORT);

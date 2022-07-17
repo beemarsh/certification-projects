@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Markdown Previewer</title>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <link
+      rel="shortcut icon"
+      href="https://bimarshbhusal.com.np/icons/icon-48x48.png?v=646f8c0b51bf5a308a3f13e771d8acf7"
+      type="image/x-icon"
+    />
+
+    <link rel="stylesheet" href="md.css" />
+  </head>
+  <body>
+    <div class="fluid-container">
+      <div class="row">
+        <div
+          id="title"
+          class="text-center col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3"
+        ></div>
+
+        <div
+          id="markdown-container"
+          class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2"
+        ></div>
+      </div>
+      <!-- row -->
+    </div>
+    <!-- fluid-container -->
+  </body>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.6/marked.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.3.1/react.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.3.1/react-dom.js"></script>
+
+  <script>
+    let Title = React.createClass({
+      displayName: "Title",
+      render: function () {
+        let titleClass = "heading-text-one";
+        let codedByClass = "heading-text-two";
+        return /*#__PURE__*/ React.createElement(
+          "div",
+          null /*#__PURE__*/,
+          React.createElement(
+            "h1",
+            { className: titleClass },
+            this.props.title
+          ) /*#__PURE__*/
+        );
+      },
+    });
+
+    ReactDOM.render(
+      /*#__PURE__*/
+      React.createElement(Title, { title: "Markdown Previewer" }),
+      document.getElementById("title")
+    );
+
+    marked.setOptions({
+      renderer: new marked.Renderer(),
+      gfm: true,
+      tables: true,
+      breaks: true,
+      pedantic: false,
+      sanitize: false,
+      smartLists: true,
+      smartypants: false,
+    });
+
+    let MarkdownOutput = React.createClass({
+      displayName: "MarkdownOutput",
+      render: function () {
+        return /*#__PURE__*/ React.createElement(
+          "div",
+          { className: "output" } /*#__PURE__*/,
+          React.createElement(
+            "h4",
+            { className: "title" },
+            "Markdown Output"
+          ) /*#__PURE__*/,
+          React.createElement("div", {
+            dangerouslySetInnerHTML: { __html: marked(this.props.value) },
+          })
+        );
+      },
+    });
+
+    let MarkdownContainer = React.createClass({
+      displayName: "MarkdownContainer",
+      getInitialState: function () {
+        return {
+          value:
+            "## Second Level Heading\n\n### Another One\n\n#### List of Cities\n\n- Kathmandu\n\n- Butwal\n\n- Bhairahawa\n\n- Kavre\n\n#### **BOLD** *ITALIC*",
+        };
+      },
+      handleChange(event) {
+        this.setState({ value: event.target.value });
+      },
+      render: function () {
+        let containerClass =
+          "rounded-corners container-class col-xs-12 col-md-6";
+        return /*#__PURE__*/ React.createElement(
+          "div",
+          { className: "mdContainer" } /*#__PURE__*/,
+          React.createElement(
+            "div",
+            { className: containerClass } /*#__PURE__*/,
+            React.createElement(
+              "h4",
+              { className: "title" },
+              "Markdown Input"
+            ) /*#__PURE__*/,
+            React.createElement("textarea", {
+              className: "markdown-text",
+              onChange: this.handleChange,
+              value: this.state.value,
+            }) /*#__PURE__*/
+          ) /*#__PURE__*/,
+
+          React.createElement(
+            "div",
+            { className: containerClass } /*#__PURE__*/,
+            React.createElement(MarkdownOutput, { value: this.state.value })
+          )
+        );
+      },
+    });
+
+    ReactDOM.render(
+      /*#__PURE__*/
+      React.createElement(MarkdownContainer),
+      document.getElementById("markdown-container")
+    );
+  </script>
+</html>
