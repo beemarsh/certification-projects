@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>Exercise Tracker Microservice</title>
+    <link
+      rel="shortcut icon"
+      href="https://bimarshbhusal.com.np/icons/icon-48x48.png?v=646f8c0b51bf5a308a3f13e771d8acf7"
+      type="image/x-icon"
+    />
+    <link href="style.css" rel="stylesheet" type="text/css" />
+  </head>
+
+  <body>
+    <div class="container">
+      <h2>Exercise Tracker Microservice</h2>
+
+      <ul style="display:flex;gap:10px;">
+        <li>
+          <form action="/exercisetracker/api/exercise/new-user" method="post">
+            <fieldset>
+              <legend>Create a New User</legend>
+              <p><code>POST /api/exercise/new-user</code></p>
+              <input
+                id="uname"
+                type="text"
+                name="username"
+                placeholder="Enter Username"
+                class="url-input"
+              />
+              <input type="submit" value="Submit" class="input-button" />
+            </fieldset>
+          </form>
+        </li>
+
+        <li>
+          <form action="/exercisetracker/api/exercise/add" method="post">
+            <fieldset>
+              <legend>Add exercises</legend>
+              <p><code>POST /api/exercise/new-user</code></p>
+
+              <input
+                id="uid"
+                type="text"
+                name="userId"
+                placeholder="userId*"
+                class="url-input"
+              />
+
+              <input
+                id="desc"
+                type="text"
+                name="description"
+                placeholder="description*"
+                class="url-input"
+              />
+              <input
+                id="dur"
+                type="text"
+                name="duration"
+                placeholder="duration* (mins.)"
+                class="url-input"
+              />
+              <input
+                id="dat"
+                type="text"
+                name="date"
+                placeholder="date (yyyy-mm-dd)"
+                class="url-input"
+              />
+
+              <input type="submit" value="Submit" class="input-button" />
+            </fieldset>
+          </form>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

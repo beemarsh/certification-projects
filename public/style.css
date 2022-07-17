@@ -106,6 +106,7 @@ form {
   border: 0px;
   font-family: "Poppins", sans-serif;
   color: white;
+  margin: 0px 10px;
 }
 
 .url-input {
@@ -126,4 +127,7 @@ form {
 fieldset {
   border-radius: 10px;
   padding: 10px 20px 20px 20px;
+  flex-direction: column;
+  display: flex;
+  gap: 10px;
 }
