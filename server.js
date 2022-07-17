@@ -237,8 +237,7 @@ app.post('/exercisetracker/api/users', (req, res, next) => {
   }
 });
 
-app.post('/exercisetracker/api/:_id/exercises', (req, res, next) => {
-  console.log();
+app.post('/exercisetracker/api/users/:_id/exercises', (req, res, next) => {
   let user_id = req.params._id,
     description = req.body.description,
     duration = req.body.duration,

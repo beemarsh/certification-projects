@@ -83,7 +83,7 @@
 
 exerciseForm.addEventListener("submit", () => {
   const userId = document.getElementById("uid").value;
-  exerciseForm.action = `/exercisetracker/api/${userId}/exercises`;
+  exerciseForm.action = `/exercisetracker/api/users/${userId}/exercises`;
 
   exerciseForm.submit();
 });
