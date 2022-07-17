@@ -238,14 +238,13 @@ app.post('/exercisetracker/api/users', (req, res, next) => {
 });
 
 app.post('/exercisetracker/api/:_id/exercises', (req, res, next) => {
-  console.log('body');
-  console.log(req.body);
-  let user_id = req.body._id,
+  console.log();
+  let user_id = req.params._id,
     description = req.body.description,
     duration = req.body.duration,
     date = req.body.date ? new Date(req.body.date) : new Date();
 
-  if (req.body._id) {
+  if (req.params._id) {
     User.findOne({ _id: user_id }, function(err, data) {
       if (err) {
         next(err);
