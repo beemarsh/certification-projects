@@ -78,9 +78,8 @@ form {
   gap: 40px;
 }
 
-.custom-file-input{
+.custom-file-input {
   font-family: "Poppins", sans-serif;
-
 }
 .custom-file-input::-webkit-file-upload-button {
   visibility: hidden;
@@ -101,8 +100,30 @@ form {
 
 .input-button {
   background: #48b8a6;
-    border-radius: 10px;
-    padding: 15px 20px;
-    cursor: pointer;
+  border-radius: 10px;
+  padding: 15px 20px;
+  cursor: pointer;
+  border: 0px;
+  font-family: "Poppins", sans-serif;
+  color: white;
 }
 
+.url-input {
+  padding: 13px 20px;
+  border-radius: 3px;
+  border-width: 0px;
+  background: #48b8a6;
+  color: white;
+  font-family: "Poppins", sans-serif;
+  margin: 0px 10px;
+}
+::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: white;
+  opacity: 0.7; /* Firefox */
+}
+
+fieldset {
+  border-radius: 10px;
+  padding: 10px 20px 20px 20px;
+}
