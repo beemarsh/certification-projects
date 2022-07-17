@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Random Quote Machine</title>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <link
+      rel="shortcut icon"
+      href="https://bimarshbhusal.com.np/icons/icon-48x48.png?v=646f8c0b51bf5a308a3f13e771d8acf7"
+      type="image/x-icon"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.7.5/css/foundation.min.css"
+      integrity="sha512-IyYpCJ+7aODR+LWiU+buuFnKg69IYu7SCmn+3IBNxvEcfsDC7z1xyWhAZTAFTGTlLMnDwcQBFWhhe7JiSw6TEg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/motion-ui/2.0.4/motion-ui.min.css"
+      integrity="sha512-GFMVIJCwiLgTdEO/NMJSismlY0vvmshfer+YDYkBtRp3/ukfGY85Bwi29LWDlk1zD8jZNGewgUIh2R8DH7ZFZg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="./frontend-lib.css" />
+  </head>
+  <body>
+    <main>
+      <div class="grid-container fluid">
+        <div class="grid-x grid-margin-x">
+          <div class="cell flex-container align-center align-middle">
+            <div id="quote-box" class="card">
+              <div class="card-image slow">
+                <img id="image" />
+                <h3 id="author"></h3>
+              </div>
+              <div class="card-section">
+                <h4 id="text"></h4>
+                <small>
+                  <span id="episode"></span>
+                </small>
+              </div>
+              <div class="card-actions">
+                <button id="new-quote">New Quote</button>
+                <div class="icons">
+                  <a
+                    id="share-quote"
+                    href="#"
+                    aria-label="Facebook Share Button"
+                  >
+                    <i class="fab fa-facebook-square fa-lg"></i>
+                  </a>
+                  <a
+                    id="tweet-quote"
+                    href="#"
+                    aria-label="Twitter Share Button"
+                  >
+                    <i class="fab fa-twitter fa-lg"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+    integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  ></script>
+
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/motion-ui/2.0.4/motion-ui.min.js"
+    integrity="sha512-PkmVX3NTTAghyqQbfG+a2KCO96/K1+CpUZHAZwVDfspwvFZq1xKMr0j80ztxQDE357UGqKKyjfawU2gWbcWxuw=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  ></script>
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.7.5/js/foundation.min.js"
+    integrity="sha512-xpawU2EKh0HLTLWu8khGczejw+OaWWr+JBcbFBWtRUIkkhuMRZZeEFxY0n51aeC9YF4jxOMzd0pTR9m0tiSvsQ=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  ></script>
+
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/js/brands.min.js"
+    integrity="sha512-KGeeDLRAGeJZYsq3J/4s/X6eZyaxTAlScSN2b7z/H/r2MBZ3pAg4T52SzavEJa2Uthmll5HMhvRaLeuxT76EVQ=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  ></script>
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/js/fontawesome.min.js"
+    integrity="sha512-5qbIAL4qJ/FSsWfIq5Pd0qbqoZpk5NcUVeAAREV2Li4EKzyJDEGlADHhHOSSCw0tHP7z3Q4hNHJXa81P92borQ=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  ></script>
+
+  <script>
+    const projectName = "random-quote-machine";
+    localStorage.setItem("example_project", "Random Quote Machine");
+
+    $(document).ready(function () {
+      var quotes = [];
+      var i = 0;
+      var j;
+      $.getJSON("./quotes.json", function (data) {
+        quotes = data;
+        newQuote();
+      });
+      $("#new-quote").on("click", function () {
+        newQuote();
+      });
+      function newQuote() {
+        i = Math.floor(Math.random() * quotes.length);
+        if (i === j) {
+          while (i === j) {
+            i = Math.floor(Math.random() * quotes.length);
+          }
+        }
+        j = i;
+        getQuote(i);
+      }
+      function getQuote() {
+        MotionUI.animateIn(".card-image", "fade-in");
+        //   $("#image").attr("src", "./" + quotes[i].image);
+        //   $("#image").attr("alt", quotes[i].author);
+        $("#author").html(quotes[i].author);
+        $("#text").html(quotes[i].text);
+        $("#episode").html(quotes[i].episode);
+      }
+    });
+  </script>
+</html>

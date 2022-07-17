@@ -335,9 +335,19 @@ app.get('/exercisetracker/api/users', (req, res) => {
   })
 });
 
+
+
+// Random Quote
+app.get("/randomquote", function (req, res) {
+  res.sendFile(__dirname + "/views/randomquote.html");
+});
+
+
+
 app.use((req, res, next) => {
   return next({ status: 404, message: 'not found' })
 })
+
 
 // Error Handling middleware
 app.use((err, req, res, next) => {
@@ -357,6 +367,9 @@ app.use((err, req, res, next) => {
   res.status(errCode).type('txt')
     .send(errMessage)
 })
+
+
+
 
 var listener = app.listen(process.env.PORT, function () {
   console.log("Your app is listening on port " + process.env.PORT);
