@@ -215,7 +215,7 @@ function isValidDate(date) {
   return date instanceof Date && !isNaN(date);
 }
 
-app.post('/exercisetracker/api/exercise/new-user', (req, res, next) => {
+app.post('/exercisetracker/api/users', (req, res, next) => {
   const new_user = req.body.username;
   if (new_user) {
     User.findOne({ username: new_user }, function(err, data) {
@@ -288,7 +288,7 @@ app.post('/exercisetracker/api/exercise/add', (req, res, next) => {
 
 });
 
-app.get('/exercisetracker/api/exercise/log', (req, res) => {
+app.get('/exercisetracker/api/log', (req, res) => {
   User.findOne({ _id: req.query.userId }, (err, data) => {
     if (data === null) {
       res.send({ error: "User not found" });
@@ -327,7 +327,7 @@ app.get('/exercisetracker/api/exercise/log', (req, res) => {
   });
 });
 
-app.get('/exercisetracker/api/exercise/users', (req, res) => {
+app.get('/exercisetracker/api/users', (req, res) => {
   const logs = { exercise: false };
   User.find({}, logs, (err, data) => {
     if (err) {
