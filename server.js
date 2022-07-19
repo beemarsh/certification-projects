@@ -344,6 +344,11 @@ app.get("/mdpreview", function (req, res) {
   res.sendFile(__dirname + "/views/mdpreview.html");
 });
 
+
+app.get("/calculator", function (req, res) {
+  res.sendFile(__dirname + "/views/calculator.html");
+});
+
 app.use((req, res, next) => {
   return next({ status: 404, message: "not found" });
 });

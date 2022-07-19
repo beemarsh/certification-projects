@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Calculator</title>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/fontawesome.min.css"
+      integrity="sha512-xX2rYBFJSj86W54Fyv1de80DWBq7zYLn2z0I9bIhQG+rxIF6XVJUpdGnsNHWRa6AvP89vtFupEPDP8eZAtu9qA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.0-beta1/css/bootstrap.min.css"
+      integrity="sha512-o/MhoRPVLExxZjCFVBsm17Pkztkzmh7Dp8k7/3JrtNCHh0AQ489kwpfA3dPSHzKDe8YCuEhxXq3Y71eb/o6amg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      rel="shortcut icon"
+      href="https://bimarshbhusal.com.np/icons/icon-48x48.png?v=646f8c0b51bf5a308a3f13e771d8acf7"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="calculator.css" />
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <div id="display" class="col-xs-12">
+          <div class="hidden-calculation"><h4>0</h4></div>
+          <div class="latest-calculation"><h3></h3></div>
+          <div class="result">
+            <h1>
+              <span class="equals">= </span>
+              <span class="open-bracket">0</span>
+              <span class="close-bracket"></span>
+            </h1>
+          </div>
+        </div>
+        <div id="keys" class="col-xs-12 col-sm-8">
+          <div class="grey800">
+            <span class="key">7</span> <span class="key">4</span>
+            <span class="key">1</span> <span class="key">.</span>
+          </div>
+          <div class="grey800">
+            <span class="key">8</span> <span class="key">5</span>
+            <span class="key">2</span> <span class="key">0</span>
+          </div>
+          <div class="grey800">
+            <span class="key">9</span> <span class="key">6</span>
+            <span class="key">3</span> <span class="key">=</span>
+          </div>
+          <div class="grey700">
+            <span class="key">DEL</span> <span class="key">÷</span>
+            <span class="key">×</span> <span class="key">-</span>
+            <span class="key">+</span>
+          </div>
+          <div class="yellowA600"></div>
+        </div>
+        <div id="keys-extended" class="hidden-xs col-sm-4">
+          <div>
+            <span class="key">sin</span> <span class="key">ln</span>
+            <span class="key">π</span>
+            <span class="key">(</span>
+          </div>
+          <div>
+            <span class="key">cos</span> <span class="key">log</span>
+            <span class="key">e</span>
+            <span class="key">)</span>
+          </div>
+          <div>
+            <span class="key">tan</span> <span class="key">!</span>
+            <span class="key">^</span>
+            <span class="key">√</span>
+          </div>
+         
+        </div>
+      </div>
+    </div>
+    <script src="calculator.js"></script>
+  </body>
+</html>
