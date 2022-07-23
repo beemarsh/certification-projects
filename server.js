@@ -349,6 +349,12 @@ app.get("/calculator", function (req, res) {
   res.sendFile(__dirname + "/views/calculator.html");
 });
 
+
+// DRUM MACHINE
+app.get("/drummachine", function (req, res) {
+  res.sendFile(__dirname + "/views/drummachine.html");
+});
+
 app.use((req, res, next) => {
   return next({ status: 404, message: "not found" });
 });

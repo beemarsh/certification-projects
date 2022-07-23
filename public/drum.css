@@ -1,0 +1,363 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap");
+body {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+.App {
+  text-align: center;
+}
+
+.App-header {
+  background-color: #0a192f;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+#drum-machine {
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+  align-content: stretch;
+  height: 325px;
+  width: 40vw;
+  padding: 15px 20px;
+    
+}
+
+.fcc-logo {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  width: 100%;
+  height: 5%;
+  color: black;
+  font-style: italic;
+  font-weight: 900;
+  font-size: 0.8em;
+  margin: 0;
+  padding: 0;
+}
+
+.fcc-text {
+  margin: 0;
+  padding: 0;
+}
+
+.fa-free-code-camp {
+  font-style: italic;
+}
+
+#drum-machine-display {
+  width: 100%;
+  height: 95%;
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+  padding: 0;
+  margin: 0;
+}
+
+.drum-pad-container {
+  display: flex;
+  justify-content: space-between;
+  align-content: space-between;
+  flex-wrap: wrap;
+  width: 50%;
+}
+
+.drum-pad {
+    width: 32%;
+    height: 31%;
+    background-color: #ccd6f6;
+    border: 0;
+    border-radius: 5px;
+    font-weight: 900;
+    font-size: 0.8em;
+    /* box-shadow: 0 4px 2px #999; */
+    outline: none;
+}
+
+.drum-pad:hover {
+  cursor: pointer;
+  background-color: #696969;
+}
+
+.drum-pad:active {
+  box-shadow: 0 2px #666;
+  transform: translateY(4px);
+  background-color: orange;
+}
+
+.controls-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-content: space-between;
+  align-items: center;
+  width: 50%;
+}
+
+.text {
+  color: #64ffda;
+  font-weight: 900;
+  font-size: 0.7em;
+  font-stretch: narrower;
+  margin: 4px 0;
+  padding: 0;
+  align-self: center;
+}
+
+.power-control {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  width: 50%;
+  height: 20%;
+  margin: 0;
+  padding: 0;
+}
+
+.power-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-content: center;
+  align-self: center;
+  /* width: 65%;
+  height: 32%; */
+}
+
+.power-desc {
+  display: block;
+    color: white;
+    align-self: center;
+    min-width: 5%;
+    font-size: 0.5em;
+}
+
+.power-toggle {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-grow: 1;
+  border: 5px solid black;
+  background-color: black;
+  width: 35%;
+  height: 100%;
+  align-self: center;
+  margin: 0;
+  padding: 0;
+}
+
+.power-toggle-off {
+  min-width: 50%;
+  min-height: 100%;
+  background-color: black;
+  margin: 0;
+  padding: 0;
+}
+
+.power-toggle-on {
+  min-width: 50%;
+  min-height: 100%;
+  background-color: blue;
+  margin: 0;
+  padding: 0;
+}
+
+.power-toggle-on:hover {
+  cursor: pointer;
+}
+
+.text-display {
+  display: flex;
+  width: 70%;
+  /* background-color: #808080; */
+  height: 20%;
+  margin: 0 auto;
+  text-align: center;
+  padding: 0;
+  color: #64ffda;
+  font-weight: 900;
+  font-size: 0.8em;
+  align-content: center;
+  justify-content: center;
+}
+
+.text-param {
+  align-self: center;
+  margin: 0 auto;
+}
+
+.volume-control {
+  display: block;
+  height: 20%;
+  background-color: transparent;
+}
+
+.volume-control {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 8px;
+  border-radius: 5px;  
+  background: #ccd6f6;
+  outline: none;
+  /* opacity: 0.7; */
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+}
+
+.volume-control::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%; 
+  background: #808080;
+  cursor: pointer;
+}
+
+.volume-control::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: #808080;
+  cursor: pointer;
+}
+
+input[type="range"] {
+  -webkit-appearance: none;
+  /* margin: 10px 0; */
+  width: 85%;
+}
+
+input[type="range"]:focus {
+  outline: none;
+}
+
+.bank-control {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  width: 50%;
+  height: 20%;
+  margin: 0;
+  padding: 0;
+}
+
+.bank-toggle {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+  border: 5px solid black;
+  background-color: black;
+  width: 35%;
+  height: 50%;
+  align-self: center;
+  margin: 0;
+  padding: 0;
+}
+
+.bank-toggle-off {
+  min-width: 50%;
+  min-height: 100%;
+  background-color: black;
+  margin: 0;
+  padding: 0;
+}
+
+.bank-toggle-on {
+  min-width: 50%;
+  min-height: 100%;
+  background-color: blue;
+  margin: 0;
+  padding: 0;
+}
+
+.bank-toggle-on:hover {
+  cursor: pointer;
+}
+
+@media (max-width: 1200px) {
+  #drum-machine {
+    width: 50vw;
+    height: 45vh;
+  }
+}
+
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+  align-self: center;
+}
+
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
