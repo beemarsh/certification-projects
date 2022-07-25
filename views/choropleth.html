@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap");
+
+      * {
+        font-family: "Poppins", sans-serif;
+      }
+
+      html,
+      body {
+        min-height: 100%;
+      }
+
+      body {
+        background-color: #0a192f;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        color: #64ffda;
+        margin: none;
+      }
+
+      svg {
+        /* background-color: #305555; */
+        /*box-shadow: 0px 3px 15px rgba(0,0,0,0.2); */
+        /*border-radius: 5px; */
+        padding: 10px;
+        border-radius: 5px;
+      }
+
+      #canvas {
+        min-height: 600px;
+        min-width: 950px;
+      }
+
+      .county:hover {
+        fill: black;
+      }
+
+      g {
+        color: #fdf1e7;
+      }
+
+      #tooltip {
+        visibility: hidden;
+        /* height: auto; */
+        /* width: auto; */
+        /* margin-top: 2px; */
+        color: #fdf1e7;
+        font-size: 20px;
+        /* margin-bottom: 5px; */
+        position: absolute;
+        /* top: 0; */
+        right: 0;
+        /* left: 0; */
+        width: 100vw;
+        text-align: center;
+      }
+
+      #legend {
+        color: #64ffda !important;
+
+        font-size: 18px;
+        text-align: center;
+        min-height: 150px;
+        max-width: 180px;
+        margin-top: 40px;
+        margin-bottom: 40px;
+      }
+
+      #legend  > g > text {
+        color: #64ffda;
+        fill: #64ffda;
+      }
+
+      #title {
+        font-size: 28px;
+        color: #64ffda;
+        text-transform: uppercase;
+        margin-top: 10px;
+        margin-bottom: 30px;
+      }
+
+      #description {
+        position: absolute;
+    /* bottom: 0; */
+    /* right: 0; */
+    /* left: 0; */
+    /* top: 0; */
+    /* align-self: center; */
+    /* justify-content: center; */
+    /* justify-self: center; */
+    /* align-content: center; */
+    width: 100vw;
+    right: 0;
+    color: #fff;
+    text-align: center;
+    bottom: 0;
+    margin-bottom: 20px;
+      }
+
+      #description a {
+        text-decoration: none;
+        color: #fdf1e7;
+        text-align: center;
+      }
+
+      #container {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        justify-content: center;
+      }
+
+      #rightSide {
+        display: flex;
+        /* flex-direction: column; */
+        align-items: center;
+        /* margin-left: 50px; */
+        position: absolute;
+        bottom: 0;
+        right: 0;
+      }
+    </style>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"
+      integrity="sha256-tHoAPGoNdhIR28YHl9DWLzeRfdwigkH7OCBXMrHXhoM="
+      crossorigin="anonymous"
+    ></script>
+    <title>Choropleth Map</title>
+
+    <link
+      rel="shortcut icon"
+      href="https://bimarshbhusal.com.np/icons/icon-48x48.png?v=646f8c0b51bf5a308a3f13e771d8acf7"
+      type="image/x-icon"
+    />
+  </head>
+  <body>
+    <h2 id="title">United States Adult Education</h2>
+    <div id="container">
+      <svg id="canvas"></svg>
+      <div id="rightSide">
+        <div id="tooltip"></div>
+        <svg id="legend">
+          <g>
+            <rect x="10" y="0" width="40" height="40" fill="tomato"></rect>
+            <text x="60" y="20" fill="white">Less than 15%</text>
+          </g>
+          <g>
+            <rect x="10" y="40" width="40" height="40" fill="orange"></rect>
+            <text x="60" y="60" fill="white">15% than 30%</text>
+          </g>
+          <g>
+            <rect x="10" y="80" width="40" height="40" fill="lightgreen"></rect>
+            <text x="60" y="100" fill="white">30% to 45%</text>
+          </g>
+          <g>
+            <rect x="10" y="120" width="40" height="40" fill="limegreen"></rect>
+            <text x="60" y="140" fill="white">More than 45%</text>
+          </g>
+        </svg>
+        <div id="description">
+          Percentage of adults age 25 and older with a bachelor's degree or
+          higher (2010-2014). Source:
+          <a
+            href="https://www.ers.usda.gov/data-products/county-level-data-sets/download-data.aspx"
+            >USDA Economic Research Service</a
+          >
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="https://cdn.freecodecamp.org/testable-projects-fcc/v1/bundle.js"></script>
+  <script>
+    let countyURL =
+      "https://cdn.freecodecamp.org/testable-projects-fcc/data/choropleth_map/counties.json";
+    let educationURL =
+      "https://cdn.freecodecamp.org/testable-projects-fcc/data/choropleth_map/for_user_education.json";
+
+    let countyData;
+    let educationData;
+
+    let canvas = d3.select("#canvas");
+    let tooltip = d3.select("#tooltip");
+
+    let drawMap = () => {
+      canvas
+        .selectAll("path")
+        .data(countyData)
+        .enter()
+        .append("path")
+        .attr("d", d3.geoPath())
+        .attr("class", "county")
+        .attr("fill", (countyDataItem) => {
+          let id = countyDataItem["id"];
+          let county = educationData.find((item) => {
+            return item["fips"] === id;
+          });
+          let percentage = county["bachelorsOrHigher"];
+          if (percentage <= 15) {
+            return "tomato";
+          } else if (percentage <= 30) {
+            return "orange";
+          } else if (percentage <= 45) {
+            return "lightgreen";
+          } else {
+            return "limegreen";
+          }
+        })
+        .attr("data-fips", (countyDataItem) => {
+          return countyDataItem["id"];
+        })
+        .attr("data-education", (countyDataItem) => {
+          let id = countyDataItem["id"];
+          let county = educationData.find((item) => {
+            return item["fips"] === id;
+          });
+          let percentage = county["bachelorsOrHigher"];
+          return percentage;
+        })
+        .on("mouseover", (countyDataItem) => {
+          tooltip.transition().style("visibility", "visible");
+
+          let id = countyDataItem["id"];
+          let county = educationData.find((item) => {
+            return item["fips"] === id;
+          });
+
+          tooltip.text(
+            county["fips"] +
+              " - " +
+              county["area_name"] +
+              ", " +
+              county["state"] +
+              " : " +
+              county["bachelorsOrHigher"] +
+              "%"
+          );
+
+          tooltip.attr("data-education", county["bachelorsOrHigher"]);
+        })
+        .on("mouseout", (countyDataItem) => {
+          tooltip.transition().style("visibility", "hidden");
+        });
+    };
+
+    d3.json(countyURL).then((data, error) => {
+      if (error) {
+        console.log(log);
+      } else {
+        countyData = topojson.feature(data, data.objects.counties).features;
+        console.log(countyData);
+
+        d3.json(educationURL).then((data, error) => {
+          if (error) {
+            console.log(error);
+          } else {
+            educationData = data;
+            console.log(educationData);
+            drawMap();
+          }
+        });
+      }
+    });
+  </script>
+</html>

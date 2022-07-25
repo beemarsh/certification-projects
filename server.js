@@ -370,6 +370,11 @@ app.get("/heatmap", function (req, res) {
   res.sendFile(__dirname + "/views/heatmap.html");
 });
 
+// D3 Choropleth
+app.get("/choropleth", function (req, res) {
+  res.sendFile(__dirname + "/views/choropleth.html");
+});
+
 app.use((req, res, next) => {
   return next({ status: 404, message: "not found" });
 });
