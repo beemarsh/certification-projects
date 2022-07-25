@@ -360,6 +360,11 @@ app.get("/barchart", function (req, res) {
   res.sendFile(__dirname + "/views/barchart.html");
 });
 
+// D3 Bar Chart
+app.get("/scatterplot", function (req, res) {
+  res.sendFile(__dirname + "/views/scatterplot.html");
+});
+
 app.use((req, res, next) => {
   return next({ status: 404, message: "not found" });
 });
