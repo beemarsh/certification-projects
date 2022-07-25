@@ -360,9 +360,14 @@ app.get("/barchart", function (req, res) {
   res.sendFile(__dirname + "/views/barchart.html");
 });
 
-// D3 Bar Chart
+// D3 Scatterplot 
 app.get("/scatterplot", function (req, res) {
   res.sendFile(__dirname + "/views/scatterplot.html");
+});
+
+// D3 Heat Map
+app.get("/heatmap", function (req, res) {
+  res.sendFile(__dirname + "/views/heatmap.html");
 });
 
 app.use((req, res, next) => {
