@@ -375,6 +375,12 @@ app.get("/choropleth", function (req, res) {
   res.sendFile(__dirname + "/views/choropleth.html");
 });
 
+
+// D3 treemap
+app.get("/treemap", function (req, res) {
+  res.sendFile(__dirname + "/views/treemap.html");
+});
+
 app.use((req, res, next) => {
   return next({ status: 404, message: "not found" });
 });
