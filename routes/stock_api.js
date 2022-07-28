@@ -68,6 +68,8 @@ async function saveStock(stock, like, ip) {
 module.exports = function (app) {
   const helmet = require("helmet");
   const ninetyDaysInSeconds = 90 * 24 * 60 * 60;
+  const cors = require("cors");
+  app.use(cors({ origin: "*" })); //For FCC testing purposes only
   /* parent helmet */
   app.use(
     helmet({

@@ -380,7 +380,6 @@ app.get("/treemap", function (req, res) {
 
 // INfo Sec , STOCK
 
-// const stock = require("./routes/stock");
 
 const stockRoutes = require("./routes/stock_api");
 
