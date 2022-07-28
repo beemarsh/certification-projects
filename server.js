@@ -344,11 +344,9 @@ app.get("/mdpreview", function (req, res) {
   res.sendFile(__dirname + "/views/mdpreview.html");
 });
 
-
 app.get("/calculator", function (req, res) {
   res.sendFile(__dirname + "/views/calculator.html");
 });
-
 
 // DRUM MACHINE
 app.get("/drummachine", function (req, res) {
@@ -360,7 +358,7 @@ app.get("/barchart", function (req, res) {
   res.sendFile(__dirname + "/views/barchart.html");
 });
 
-// D3 Scatterplot 
+// D3 Scatterplot
 app.get("/scatterplot", function (req, res) {
   res.sendFile(__dirname + "/views/scatterplot.html");
 });
@@ -375,11 +373,49 @@ app.get("/choropleth", function (req, res) {
   res.sendFile(__dirname + "/views/choropleth.html");
 });
 
-
 // D3 treemap
 app.get("/treemap", function (req, res) {
   res.sendFile(__dirname + "/views/treemap.html");
 });
+
+// INfo Sec , STOCK
+
+// const stock = require("./routes/stock");
+
+const apiRoutes = require("./routes/stock_api");
+// const helmet = require("helmet");
+// const ninetyDaysInSeconds = 90 * 24 * 60 * 60;
+// app.use(
+//   helmet({
+//     frameguard: {
+//       //configure
+//       action: "deny",
+//     },
+
+//     hsts: {
+//       maxAge: ninetyDaysInSeconds,
+//       preload: true,
+//     },
+//     dnsPrefetchControl: {
+//       allow: false,
+//     },
+//     contentSecurityPolicy: {
+//       directives: {
+//         defaultSrc: ["'self'"],
+//         scriptSrc: ["'self'"],
+//         styleSrc: ["'self'"],
+//       },
+//     },
+//   })
+// );
+
+app.route("/stock").get(function (req, res) {
+  res.sendFile(__dirname + "/views/stock.html");
+});
+
+apiRoutes(app);
+
+//
 
 app.use((req, res, next) => {
   return next({ status: 404, message: "not found" });
