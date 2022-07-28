@@ -379,43 +379,45 @@ app.get("/treemap", function (req, res) {
 });
 
 // INfo Sec , STOCK
+
+// const stock = require("./routes/stock");
+
 const stockRoutes = require("./routes/stock_api");
 
-app.use("/stock", (req, res) => {
-  const helmet = require("helmet");
-  const ninetyDaysInSeconds = 90 * 24 * 60 * 60;
-  /* parent helmet */
-  app.use(
-    helmet({
-      hidePoweredBy: {},
-      frameguard: {
-        //configure
-        action: "deny",
-      },
-      xssFilter: { setOnOldIE: true },
-
-      hsts: {
-        maxAge: ninetyDaysInSeconds,
-        preload: true,
-      },
-      dnsPrefetchControl: {
-        allow: false,
-      },
-      contentSecurityPolicy: {
-        directives: {
-          defaultSrc: ["'self'"],
-          scriptSrc: ["'self'"],
-          styleSrc: ["'self'"],
-        },
-      },
-    })
-  );
-
+app.route("/stock").get(function (req, res) {
   res.sendFile(__dirname + "/views/stock.html");
 });
 
 stockRoutes(app);
 
+
+const helmet = require("helmet");
+const ninetyDaysInSeconds = 90 * 24 * 60 * 60;
+app.use(
+  helmet({
+    hidePoweredBy: {},
+    frameguard: {
+      //configure
+      action: "deny",
+    },
+    xssFilter: { setOnOldIE: true },
+
+    hsts: {
+      maxAge: ninetyDaysInSeconds,
+      preload: true,
+    },
+    dnsPrefetchControl: {
+      allow: false,
+    },
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        scriptSrc: ["'self'"],
+        styleSrc: ["'self'"],
+      },
+    },
+  })
+);
 //
 
 app.use((req, res, next) => {
