@@ -4,42 +4,13 @@
     <title>Stock Price Checker</title>
     <link
       rel="shortcut icon"
-      href="https://bimarshbhusal.com.np/icons/icon-48x48.png?v=646f8c0b51bf5a308a3f13e771d8acf7"
+      href="logo.png"
       type="image/x-icon"
     />
     <!-- <meta charset="utf-8" /> -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <style>
-      #userstories {
-        margin-left: 5%;
-        margin-top: 5%;
-      }
-
-      .p-50 {
-        margin: 50px;
-      }
-
-      #testui {
-        margin-left: 5%;
-      }
-
-      .text-align-left {
-        text-align: left;
-      }
-
-      input[type="text"] {
-        width: 100px;
-      }
-
-      .m-50 {
-        margin: 50px;
-      }
-
-      .mt-200 {
-        margin-top: 200px;
-      }
-    </style>
+    <link rel="stylesheet" href="stock.css" />
   </head>
   <body>
     <header>
@@ -84,32 +55,5 @@
     </div>
     <hr class="m-50 mt-200" />
   </body>
-  <script>
-    document.getElementById("testForm2").addEventListener("submit", (e) => {
-      e.preventDefault();
-      const stock = e.target[0].value;
-      const checkbox = e.target[1].checked;
-      fetch(`/api/stock-prices/?stock=${stock}&like=${checkbox}`)
-        .then((res) => res.json())
-        .then((data) => {
-          document.getElementById("jsonResult").innerText =
-            JSON.stringify(data);
-        });
-    });
-
-    document.getElementById("testForm").addEventListener("submit", (e) => {
-      e.preventDefault();
-      const stock1 = e.target[0].value;
-      const stock2 = e.target[1].value;
-      const checkbox = e.target[2].checked;
-      fetch(
-        `/api/stock-prices?stock=${stock1}&stock=${stock2}&like=${checkbox}`
-      )
-        .then((res) => res.json())
-        .then((data) => {
-          document.getElementById("jsonResult").innerText =
-            JSON.stringify(data);
-        });
-    });
-  </script>
+  <script src="stock.js"></script>
 </html>
