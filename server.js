@@ -382,6 +382,14 @@ app.get("/treemap", function (req, res) {
 
 const stockRoutes = require("./routes/stock_api");
 
+app.use(function (req, res, next) {
+  res.setHeader(
+    "Content-Security-Policy",
+    "default-src 'self'; script-src 'self'; style-src 'self'; "
+  );
+  next();
+});
+
 app.route("/stock").get(function (req, res) {
   res.sendFile(__dirname + "/views/stock.html");
 });
