@@ -66,36 +66,6 @@ async function saveStock(stock, like, ip) {
 /*------------------------------------*/
 /* main driver */
 module.exports = function (app) {
-  const helmet = require("helmet");
-  const ninetyDaysInSeconds = 90 * 24 * 60 * 60;
-  const cors = require("cors");
-  app.use(cors({ origin: "*" })); //For FCC testing purposes only
-  /* parent helmet */
-  app.use(
-    helmet({
-      hidePoweredBy: {},
-      frameguard: {
-        //configure
-        action: "deny",
-      },
-      xssFilter: { setOnOldIE: true },
-
-      hsts: {
-        maxAge: ninetyDaysInSeconds,
-        preload: true,
-      },
-      dnsPrefetchControl: {
-        allow: false,
-      },
-      contentSecurityPolicy: {
-        directives: {
-          defaultSrc: ["'self'"],
-          scriptSrc: ["'self'"],
-          styleSrc: ["'self'"],
-        },
-      },
-    })
-  );
   app.route("/stock/api/stock-prices").get(async function (req, res) {
     const cors = require("cors");
     app.use(cors({ origin: "*" })); //For FCC testing purposes only

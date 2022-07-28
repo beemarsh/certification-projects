@@ -379,13 +379,41 @@ app.get("/treemap", function (req, res) {
 });
 
 // INfo Sec , STOCK
-
-
 const stockRoutes = require("./routes/stock_api");
 
-app.route("/stock").get(function (req, res) {
+app.use("/stock", (req, res) => {
+  const helmet = require("helmet");
+  const ninetyDaysInSeconds = 90 * 24 * 60 * 60;
+  /* parent helmet */
+  app.use(
+    helmet({
+      hidePoweredBy: {},
+      frameguard: {
+        //configure
+        action: "deny",
+      },
+      xssFilter: { setOnOldIE: true },
+
+      hsts: {
+        maxAge: ninetyDaysInSeconds,
+        preload: true,
+      },
+      dnsPrefetchControl: {
+        allow: false,
+      },
+      contentSecurityPolicy: {
+        directives: {
+          defaultSrc: ["'self'"],
+          scriptSrc: ["'self'"],
+          styleSrc: ["'self'"],
+        },
+      },
+    })
+  );
+
   res.sendFile(__dirname + "/views/stock.html");
 });
+
 stockRoutes(app);
 
 //
