@@ -66,9 +66,17 @@ async function saveStock(stock, like, ip) {
 /*------------------------------------*/
 /* main driver */
 module.exports = function (app) {
+  app.use(function (req, res, next) {
+    res.setHeader(
+      "Content-Security-Policy",
+      "default-src 'self'; script-src 'self'; style-src 'self'; "
+    );
+    next();
+  });
+
   app.route("/stock/api/stock-prices").get(async function (req, res) {
-    const cors = require("cors");
-    app.use(cors({ origin: "*" })); //For FCC testing purposes only
+    // const cors = require("cors");
+    // app.use(cors({ origin: "*" })); //For FCC testing purposes only
     const { stock, like } = req.query;
     // console.log("From req.body: ",stock, like);
     const ip = anonymize(req.ip, 16, 16);

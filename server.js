@@ -380,8 +380,6 @@ app.get("/treemap", function (req, res) {
 
 // INfo Sec , STOCK
 
-// const stock = require("./routes/stock");
-
 const stockRoutes = require("./routes/stock_api");
 
 app.route("/stock").get(function (req, res) {
@@ -390,34 +388,6 @@ app.route("/stock").get(function (req, res) {
 
 stockRoutes(app);
 
-
-const helmet = require("helmet");
-const ninetyDaysInSeconds = 90 * 24 * 60 * 60;
-app.use(
-  helmet({
-    hidePoweredBy: {},
-    frameguard: {
-      //configure
-      action: "deny",
-    },
-    xssFilter: { setOnOldIE: true },
-
-    hsts: {
-      maxAge: ninetyDaysInSeconds,
-      preload: true,
-    },
-    dnsPrefetchControl: {
-      allow: false,
-    },
-    contentSecurityPolicy: {
-      directives: {
-        defaultSrc: ["'self'"],
-        scriptSrc: ["'self'"],
-        styleSrc: ["'self'"],
-      },
-    },
-  })
-);
 //
 
 app.use((req, res, next) => {
