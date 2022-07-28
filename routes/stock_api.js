@@ -66,7 +66,35 @@ async function saveStock(stock, like, ip) {
 /*------------------------------------*/
 /* main driver */
 module.exports = function (app) {
-  app.route("/api/stock-prices").get(async function (req, res) {
+  const helmet = require("helmet");
+  const ninetyDaysInSeconds = 90 * 24 * 60 * 60;
+  /* parent helmet */
+  app.use(
+    helmet({
+      hidePoweredBy: {},
+      frameguard: {
+        //configure
+        action: "deny",
+      },
+      xssFilter: { setOnOldIE: true },
+
+      hsts: {
+        maxAge: ninetyDaysInSeconds,
+        preload: true,
+      },
+      dnsPrefetchControl: {
+        allow: false,
+      },
+      contentSecurityPolicy: {
+        directives: {
+          defaultSrc: ["'self'"],
+          scriptSrc: ["'self'"],
+          styleSrc: ["'self'"],
+        },
+      },
+    })
+  );
+  app.route("/stock/api/stock-prices").get(async function (req, res) {
     const { stock, like } = req.query;
     // console.log("From req.body: ",stock, like);
     const ip = anonymize(req.ip, 16, 16);
