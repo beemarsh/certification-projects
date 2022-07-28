@@ -95,7 +95,8 @@ module.exports = function (app) {
     })
   );
   app.route("/stock/api/stock-prices").get(async function (req, res) {
-    app.use(cors({origin: '*'})); //For FCC testing purposes only
+    const cors = require("cors");
+    app.use(cors({ origin: "*" })); //For FCC testing purposes only
     const { stock, like } = req.query;
     // console.log("From req.body: ",stock, like);
     const ip = anonymize(req.ip, 16, 16);
