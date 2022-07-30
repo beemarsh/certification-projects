@@ -20,25 +20,13 @@ app.use(cors({ optionSuccessStatus: 200 })); // some legacy browsers choke on 20
 app.use(express.static("public"));
 
 const helmet = require("helmet");
-app.use(
-  helmet({
-    // frameguard: {
-    //   action: 'deny'
-    // },
-    contentSecurityPolicy: {
-      directives: {
-        // defaultSrc: ["'self'"],
-        scriptSrc: ["'self'"],
-        styleSrc: ["'self'"],
-      },
-    },
-  })
-);
-
-app.use(cors({ origin: "*" })); //For FCC testing purposes only
+app.use(cors({origin: '*'})); //For FCC testing purposes only
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(helmet());
+app.use(helmet.xssFilter())
 
 app.get("/", function (req, res) {
   res.sendFile(__dirname + "/views/index.html");
