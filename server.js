@@ -385,7 +385,7 @@ const stockRoutes = require("./routes/stock_api");
 app.route("/stock").get(function (req, res) {
   res.setHeader(
     "Content-Security-Policy",
-    "default-src 'self'; script-src 'self'; style-src 'self'; "
+    "script-src 'self'; style-src 'self'; "
   );
   res.sendFile(__dirname + "/views/stock.html");
 });
