@@ -20,33 +20,25 @@ app.use(cors({ optionSuccessStatus: 200 })); // some legacy browsers choke on 20
 app.use(express.static("public"));
 
 const helmet = require("helmet");
-const ninetyDaysInSeconds = 90 * 24 * 60 * 60;
-/* parent helmet */
 app.use(
   helmet({
-    hidePoweredBy: {},
-    frameguard: {
-      //configure
-      action: "deny",
-    },
-    xssFilter: { setOnOldIE: true },
-
-    hsts: {
-      maxAge: ninetyDaysInSeconds,
-      preload: true,
-    },
-    dnsPrefetchControl: {
-      allow: false,
-    },
+    // frameguard: {
+    //   action: 'deny'
+    // },
     contentSecurityPolicy: {
       directives: {
-        defaultSrc: ["'self'"],
+        // defaultSrc: ["'self'"],
         scriptSrc: ["'self'"],
         styleSrc: ["'self'"],
       },
     },
   })
 );
+
+app.use(cors({ origin: "*" })); //For FCC testing purposes only
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get("/", function (req, res) {
   res.sendFile(__dirname + "/views/index.html");
@@ -408,9 +400,6 @@ app.get("/treemap", function (req, res) {
 });
 
 // INfo Sec , STOCK
-
-
-
 
 const stockRoutes = require("./routes/stock_api");
 
