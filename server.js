@@ -394,10 +394,10 @@ const stockRoutes = require("./routes/stock_api");
 const { strict } = require("assert");
 
 app.route("/stock").get(function (req, res) {
-  // res.setHeader(
-  //   "Content-Security-Policy",
-  //   "script-src 'self'; style-src 'self'; "
-  // );
+  res.setHeader(
+    "Content-Security-Policy",
+    "script-src 'self'; style-src 'self'; "
+  );
   res.sendFile(__dirname + "/views/stock.html");
 });
 
