@@ -26,8 +26,8 @@ app.use(cors({ origin: "*" })); //For FCC testing purposes only
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use(helmet());
-app.use(helmet.xssFilter());
+// app.use(helmet());
+// app.use(helmet.xssFilter());
 
 app.get("/", function (req, res) {
   res.sendFile(__dirname + "/views/index.html");
